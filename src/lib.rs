@@ -76,24 +76,28 @@ pub fn fib<T: Int + Hash + Eq>(n: T) -> T{
     fib_cache(&mut cache, n)
 }
 
-
-#[memoize] 
 /// Caclculates fibonacci with memoizate
 /// Supports: usize
 /// 
 /// # Example
 /// 
-///  assert_eq!(fib:_memo:<usize>(30), 832040);
+///  assert_eq!(fib_memo(30), 832040);
 /// 
 /// # Panic
 /// 
 /// If the number that is created is to big for the datastructure
 pub fn fib_memo(n: usize) -> usize {
-    match n  {
-        0 => 0,
-        1 => 1,
-        _ => fib(n-1) + fib(n-2)
-    }     
+
+    #[memoize] //Not to expose the functions created by memoize
+    fn memo(n: usize) -> usize{
+       match n  {
+            0 => 0,
+            1 => 1,
+            _ => fib(n-1) + fib(n-2)
+        }     
+    }
+    
+    memo(n)
 }
 
 #[cfg(test)]
@@ -116,6 +120,7 @@ mod test_fib{
        assert_eq!(fib_memo(6), 8);
        assert_eq!(fib_memo(15), 610);
        assert_eq!(fib_memo(30), 832040);
+       assert_eq!(fib_memo(50), 12586269025);
     }
 
 }

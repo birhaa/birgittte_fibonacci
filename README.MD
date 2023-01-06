@@ -1,4 +1,4 @@
-# Birgitte fibonacco
+# Birgitte fibonacci
 
 `birgitte_fibonacci` has functions that calculate the  fibonacci number of a given number.
 
